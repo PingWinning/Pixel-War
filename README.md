@@ -4,6 +4,7 @@
 Welcome to the **Pixel War Project**, an ambitious venture aiming to create a secure, fun, and highly competitive multiplayer pixel art game. Imagine a massive digital canvas where users from all over the world can collaboratively place blocks and colors, similar to the viral concept of pixel wars. With the help of skilled contributors and passionate players, this project has the potential to redefine the genre while providing both financial and learning opportunities.
 
 ---
+![image](https://github.com/user-attachments/assets/9fa6ce8a-0822-43f5-bb8d-65d016fb7b83)
 
 ## **Project Vision**
 
