@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pixel Art Grid</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    html, body {
+      height: 100%;
+      margin: 0;
+      overflow: hidden;
+    }
+    #gridContainer {
+      display: grid;
+      width: 2048px; /* Fixed grid width */
+      height: 2048px; /* Fixed grid height */
+      background-color: white;
+      border: 2px solid #ccc;
+    }
+    .color {
+      box-shadow: inset 0 0 0 2px white, 0 0 2px black;
+    }
+    #gridWrapper {
+      overflow: auto;
+      max-width: 100vw;
+      max-height: calc(100vh - 70px); /* Leave space for toolbar */
+    }
+  </style>
+</head>
+<body class="bg-gray-100">
+
+  <!-- Scrollable Grid Wrapper -->
+  <div id="gridWrapper" class="flex items-center justify-center">
+    <div id="gridContainer"></div>
+  </div>
+
+  <!-- Toolbar -->
+  <div class="toolbar bg-gray-800 text-white p-2 w-full flex items-center justify-between">
+    <div id="palette" class="palette flex gap-2 overflow-x-auto">
+      <!-- Predefined colors will be added dynamically -->
+    </div>
+    <div id="timerDisplay" class="text-yellow-400 font-bold text-lg">
+      Timer: Ready
+    </div>
+    <div class="ml-auto flex gap-2">
+      <input
+        type="color"
+        id="colorPicker"
+        value="#000000"
+        class="h-8 w-8 p-0 border-2 border-gray-300 rounded"
+      />
+      <button
+        id="addColor"
+        class="bg-gray-600 hover:bg-gray-700 text-white font-bold px-4 py-1 rounded"
+      >
+        Add Color
+      </button>
+    </div>
+  </div>
+  
+
+  <!-- Error Modal -->
+  <div id="errorModal" class="fixed inset-0 bg-black bg-opacity-50 hidden flex items-center justify-center">
+    <div class="bg-white p-6 rounded shadow-md w-1/3">
+      <h2 class="text-xl font-bold text-red-600">Error</h2>
+      <p id="modalMessage" class="text-gray-700 mt-4"></p>
+      <div class="mt-6 flex justify-end">
+        <button
+          id="closeModal"
+          class="bg-gray-600 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded"
+        >
+          Close
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
