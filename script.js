@@ -19,6 +19,12 @@ const pixelSize = 16; // Each square pixel is 16px by 16px
 // Maximum number of colors in the palette
 const maxPaletteColors = 10;
 
+// Local storage key for storing pixel data
+const localStorageKey = 'pixelData';
+
+// Initialize grid data
+let pixelData = JSON.parse(localStorage.getItem(localStorageKey)) || {};
+
 // Modal functionality
 function showModal(message) {
   modalMessage.textContent = message;
@@ -61,6 +67,21 @@ function updateTimerDisplay(seconds) {
   }
 }
 
+// Save pixel data to local storage
+function savePixelData() {
+  localStorage.setItem(localStorageKey, JSON.stringify(pixelData));
+}
+
+// Load pixel data from local storage and update the grid
+function loadPixelData() {
+  for (const position in pixelData) {
+    const pixel = document.querySelector(`[data-position="${position}"]`);
+    if (pixel) {
+      pixel.style.backgroundColor = pixelData[position];
+    }
+  }
+}
+
 // Create the grid with fixed rows and columns
 function setupGrid() {
   // Clear existing grid
@@ -71,26 +92,40 @@ function setupGrid() {
   gridContainer.style.gridTemplateRows = `repeat(${gridRows}, ${pixelSize}px)`;
 
   // Create pixels
-  for (let i = 0; i < gridRows * gridCols; i++) {
-    const pixel = document.createElement('div');
-    pixel.style.width = `${pixelSize}px`;
-    pixel.style.height = `${pixelSize}px`;
-    pixel.classList.add('cursor-pointer', 'border', 'border-gray-200', 'bg-white');
-    pixel.addEventListener('click', () => {
-      if (!isClickable) {
-        showModal('Please wait for the timer to finish before clicking on another pixel.');
-        return;
+  for (let row = 0; row < gridRows; row++) {
+    for (let col = 0; col < gridCols; col++) {
+      const pixel = document.createElement('div');
+      const position = `${row}-${col}`;
+      pixel.style.width = `${pixelSize}px`;
+      pixel.style.height = `${pixelSize}px`;
+      pixel.classList.add('cursor-pointer', 'border', 'border-gray-200', 'bg-white');
+      pixel.dataset.position = position;
+
+      // Apply saved color if available
+      if (pixelData[position]) {
+        pixel.style.backgroundColor = pixelData[position];
       }
 
-      pixel.style.backgroundColor = selectedColor;
-      startTimer(210); // Start a timer for 3 minutes 30 seconds
-    });
-    gridContainer.appendChild(pixel);
+      pixel.addEventListener('click', () => {
+        if (!isClickable) {
+          showModal('Please wait for the timer to finish before clicking on another pixel.');
+          return;
+        }
+
+        pixel.style.backgroundColor = selectedColor;
+        pixelData[position] = selectedColor; // Save the color
+        savePixelData(); // Save to local storage
+        startTimer(210); // Start a timer for 3 minutes 30 seconds
+      });
+
+      gridContainer.appendChild(pixel);
+    }
   }
 }
 
 // Initialize the grid
 setupGrid();
+loadPixelData(); // Load data from local storage
 
 // Add a new color to the palette
 addColorButton.addEventListener('click', () => {
