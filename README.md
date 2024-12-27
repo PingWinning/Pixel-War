@@ -101,6 +101,23 @@ We welcome contributors of all skill levels to join this project. Whether you ar
 3. Feel free to suggest improvements, report bugs, or share ideas.
 4. Join the conversation on our **community channels** (details coming soon).
 
+Contributions are welcome! To contribute:
+
+1. Fork the repository.
+2. Create a new branch for your feature or bugfix:
+   ```bash
+   git checkout -b feature-name
+   ```
+3. Commit your changes:
+   ```bash
+   git commit -m "Description of changes"
+   ```
+4. Push to your branch:
+   ```bash
+   git push origin feature-name
+   ```
+5. Open a pull request.
+`
 ---
 
 ## **Potential Financial Impact**
